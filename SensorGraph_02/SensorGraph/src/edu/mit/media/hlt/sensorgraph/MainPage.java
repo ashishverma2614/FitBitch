@@ -1,16 +1,23 @@
 package edu.mit.media.hlt.sensorgraph;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Locale;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,11 +43,45 @@ public class MainPage extends FragmentActivity {
 	ViewPager mViewPager;
 	
 	private static int pedoStep = 0;
-
-	public int getPedo() {
-		
+	
+	public static int getPedo() {
+		/*String FILENAME = "hello_file";
+    	FileInputStream fis;
+    	byte[] bs = new byte[4];
+    	try {
+			fis = openFileInput(FILENAME);
+			int i = fis.read(bs);
+			
+			System.out.println("Number of bytes read: "+i);
+	        
+	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
+	        wrapped.order(ByteOrder.LITTLE_ENDIAN);
+	        i = wrapped.getInt();
+	        pedoStep += i;
+			fis.close();
+			
+			File dir = getFilesDir();
+			File file = new File(dir, FILENAME);
+			file.delete();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	System.out.println("refrash" + pedoStep);*/
 		return pedoStep;
 	}
+	
+	public void updateTextView(String toThis) {
+
+        TextView textView = (TextView) findViewById(R.id.pedo_steps);;
+        textView.setText(toThis);
+
+        return;
+        
+    }
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +104,20 @@ public class MainPage extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_page, menu);
+		//getMenuInflater().inflate(R.menu.main_page, menu);
+		menu.add(1,1,menu.FIRST, "Settings");
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		case 1:
+			Intent intent = new Intent(this, Settings.class);
+	    	startActivity(intent);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	/** Called when the user clicks the Send button */
@@ -83,15 +136,49 @@ public class MainPage extends FragmentActivity {
     
     public void respondToRefreshPedoButton(View view) {
     	// Do something in response to button
-		Bundle extras = getIntent().getExtras();
-		String value = "0";
-		if (extras != null) {
-		    value = extras.getString("pedoSteps");
+    	
+    	String FILENAME = "hello_file";
+    	FileInputStream fis;
+    	byte[] bs = new byte[4];
+    	try {
+			fis = openFileInput(FILENAME);
+			int i = fis.read(bs);
+			
+			System.out.println("Number of bytes read: "+i);
+	        
+	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
+	        wrapped.order(ByteOrder.LITTLE_ENDIAN);
+	        i = wrapped.getInt();
+	        pedoStep += i;
+			fis.close();
+			
+			File dir = getFilesDir();
+			File file = new File(dir, FILENAME);
+			file.delete();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		pedoStep += Integer.parseInt(value);
-		
+    	
+    	System.out.println("refrash" + pedoStep);
+    	
+    	//update the page with the textview count
+    	//this fucking shit didn't work goddamnit
+    	//figure out how to update a fucking text view box how hard could it honestly be you fucking prick
+    	//you should delete all the shit relating to updateTextView and that shit that you did cause you're a fucking moron
+    	//you're honestly a pathetic piece of shit what's wrong with you why can't you code a single number updating jesus christ go kill yourself
+    	//justkidding, don't kill yourself
+    	//that would be too easy
+    	//live a long and terrible life with the ugliness and unattractiveness that you are
+    	//updateTextView("" + pedoStep);
+    	
+    	//super.onResume();
+    	
     }
-
+    
+    
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
@@ -180,7 +267,14 @@ public class MainPage extends FragmentActivity {
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		
+		private Runnable mTicker;
+	    private Handler mHandler;
+	    TextView mStep;
+	    
+	    //private static int pedoStep = 0;
 		
+	    private boolean mClockStopped = false;
+
 		
 		public DummySectionFragment() {
 		}
@@ -190,15 +284,51 @@ public class MainPage extends FragmentActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_page_dummy,
 					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
+			/*TextView dummyTextView = (TextView) rootView
+					.findViewById(R.id.pedo_steps);*/
 			
-			dummyTextView.setText(Integer.toString(pedoStep));
+	        mStep = (TextView) rootView.findViewById(R.id.pedo_steps);
+	        
+	        
+			mHandler = new Handler();
 
+	        mTicker = new Runnable() {
+	            public void run() {
+	                if(mClockStopped) return;
+	                //mCalendar.setTimeInMillis(System.currentTimeMillis());
+	                mStep.setText(Integer.toString(getPedo()));
+	                mStep.invalidate();
+	                //mHandler.postAtTime(mTicker, next);
+	    			mStep.setText(Integer.toString(getPedo()));
+	    			
+	    			System.out.println(pedoStep);
+	    			mHandler.postDelayed(this, 1000);
+	            }
+	        };
+	        
+	        mHandler.postDelayed(mTicker, 1000);
+	        //mTicker.run();
 			
 			
 			return rootView;
 		}
+		
+		@Override
+	    public void onResume()
+	    {
+	        super.onResume();
+	        mClockStopped = false;
+	    }
+
+	    @Override
+	    public void onPause()
+	    {
+	        mClockStopped = false;        
+	        super.onPause();
+	    }
+		
+		
+		
 	}
 	
 	public static class HomeSectionFragment extends Fragment {
@@ -222,6 +352,7 @@ public class MainPage extends FragmentActivity {
 					ARG_SECTION_NUMBER)));*/
 			return rootView;
 		}
+		
 	}
 	
 	public static class FoodSectionFragment extends Fragment {
@@ -245,6 +376,8 @@ public class MainPage extends FragmentActivity {
 					ARG_SECTION_NUMBER)));*/
 			return rootView;
 		}
+		
+	
 	}
 
 }

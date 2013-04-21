@@ -18,15 +18,18 @@
 */
 package edu.mit.media.hlt.sensorgraph;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import at.abraxas.amarino.Amarino;
 import at.abraxas.amarino.AmarinoIntent;
@@ -142,9 +145,23 @@ public class SensorGraph extends Activity {
 						mGraph.addDataPoint(sensorReading);
 						if(sensorReading > 110) {
 							pedo++;
-							Intent i = new Intent(getApplicationContext(), MainPage.class);
-							i.putExtra("pedoSteps",pedo);
-							startActivity(i);
+							String FILENAME = "hello_file";
+							FileOutputStream fos;
+							try {
+								File dir = getFilesDir();
+								File file = new File(dir, FILENAME);
+								boolean deleted = file.delete();
+								//if (deleted) {
+									System.out.println(FILENAME);
+									fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+									fos.write(pedo);
+									fos.close();
+								//}
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 					} 
 					catch (NumberFormatException e) { /* oh data was not an integer */ }
