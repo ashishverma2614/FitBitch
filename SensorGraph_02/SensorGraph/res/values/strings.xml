@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Please ensure dog collar within bluetooth range</string>
+    <string name="app_name">DogSmart</string>
+    <string name="title_activity_main_page">DogSmart</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">Fitness</string>
+    <string name="title_section2">Home</string>
+    <string name="title_section3">Diet</string>
+    <string name="click_me">Back</string>
+    <string name="fitness">Fitness Report</string>
+    <string name="food">Diet Report</string>
+    <string name="generate_report">Generate Fitness Report</string>
+</resources>
