@@ -73,6 +73,7 @@
 	        android:layout_height="fill_parent"
 	        android:layout_weight="1"
 	        android:background="?android:attr/selectableItemBackground"
+	        android:onClick="respondToMainActivityButton"
 	        android:text="@string/button_activity"/>
     	<Button
 	        android:id="@+id/button_food"
@@ -80,6 +81,7 @@
 	        android:layout_height="fill_parent"
 	        android:layout_weight="1"
 	        android:background="?android:attr/selectableItemBackground"
+	        android:onClick="respondToMainFoodButton"
 	        android:text="@string/button_food" />
     </LinearLayout>
     
