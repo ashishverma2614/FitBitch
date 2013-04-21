@@ -105,7 +105,19 @@ public class SensorGraph extends Activity {
 	 * It extracts data from the intent and updates the graph accordingly.
 	 */
 	public class ArduinoReceiver extends BroadcastReceiver {
+		private int pedo = 0;
+		
+		public int getPedo() {
+			Intent i = new Intent(getApplicationContext(), MainPage.class);
+			i.putExtra("pedoSteps",pedo);
+			startActivity(i);
+			System.out.println("pedooooo" + pedo);
 
+			return pedo;
+		}
+		
+		
+		
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String data = null;
@@ -128,6 +140,12 @@ public class SensorGraph extends Activity {
 						// since we know that our string value is an int number we can parse it to an integer
 						final int sensorReading = Integer.parseInt(data);
 						mGraph.addDataPoint(sensorReading);
+						if(sensorReading > 110) {
+							pedo++;
+							Intent i = new Intent(getApplicationContext(), MainPage.class);
+							i.putExtra("pedoSteps",pedo);
+							startActivity(i);
+						}
 					} 
 					catch (NumberFormatException e) { /* oh data was not an integer */ }
 				}
