@@ -34,7 +34,14 @@ public class MainPage extends FragmentActivity {
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	
+	private static int pedoStep = 0;
 
+	public int getPedo() {
+		
+		return pedoStep;
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +56,8 @@ public class MainPage extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		mViewPager.setCurrentItem(1);
+		
+
 	}
 
 	@Override
@@ -68,8 +77,19 @@ public class MainPage extends FragmentActivity {
     /** Called when the user clicks the Send button */
     public void respondToFoodButton(View view) {
         // Do something in response to button
-    	Intent intent = new Intent(this, SensorGraph.class);
+    	Intent intent = new Intent(this, SensorGraph2.class);
     	startActivity(intent);
+    }
+    
+    public void respondToRefreshPedoButton(View view) {
+    	// Do something in response to button
+		Bundle extras = getIntent().getExtras();
+		String value = "0";
+		if (extras != null) {
+		    value = extras.getString("pedoSteps");
+		}
+		pedoStep += Integer.parseInt(value);
+		
     }
 
 	/**
@@ -159,7 +179,9 @@ public class MainPage extends FragmentActivity {
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-
+		
+		
+		
 		public DummySectionFragment() {
 		}
 
@@ -170,8 +192,11 @@ public class MainPage extends FragmentActivity {
 					container, false);
 			TextView dummyTextView = (TextView) rootView
 					.findViewById(R.id.section_label);
-			/*dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));*/
+			
+			dummyTextView.setText(Integer.toString(pedoStep));
+
+			
+			
 			return rootView;
 		}
 	}

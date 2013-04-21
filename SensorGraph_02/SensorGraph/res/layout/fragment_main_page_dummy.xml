@@ -23,4 +23,15 @@
         android:onClick="respondToFitnessButton"
         android:text="@string/fitness" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/section_label"
+        android:layout_marginTop="27dp"
+        android:layout_toRightOf="@+id/section_label"
+        android:text="@string/refresh_steps" 
+        android:onClick="respondToRefreshPedoButton"
+        />
+
 </RelativeLayout>

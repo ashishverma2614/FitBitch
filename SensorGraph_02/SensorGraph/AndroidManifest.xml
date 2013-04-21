@@ -23,7 +23,11 @@
             android:label="@string/app_name" >
 
         </activity>
+		<activity
+            android:name="edu.mit.media.hlt.sensorgraph.SensorGraph2"
+            android:label="@string/app_name" >
 
+        </activity>
         
     </application>
 

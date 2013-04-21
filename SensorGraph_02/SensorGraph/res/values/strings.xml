@@ -12,4 +12,5 @@
     <string name="fitness">Fitness Report</string>
     <string name="food">Diet Report</string>
     <string name="generate_report">Generate Fitness Report</string>
+    <string name="refresh_steps">Refresh Steps</string>
 </resources>
