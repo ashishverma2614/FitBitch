@@ -61,14 +61,16 @@
         android:layout_width="fill_parent"
     	android:layout_height="0dip"
     	android:layout_weight="0.7">
-        <Button
+        <ImageButton
 	        android:id="@+id/button_activity"
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="1"
 	        android:background="?android:attr/selectableItemBackground"
 	        android:onClick="respondToMainActivityButton"
-	        android:text="@string/button_activity"/>
+	        android:text="@string/button_activity"
+	        android:src="@drawable/icon"
+	        />
     	<ImageButton
 	        android:id="@+id/button_food"
 	        android:layout_width="0dp"
