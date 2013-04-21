@@ -4,12 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".MainPage$DummySectionFragment" >
-    
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <RelativeLayout 
         android:layout_width="fill_parent"
     	android:layout_height="0dip"
@@ -21,7 +15,7 @@
     	    android:layout_height="fill_parent"
     	    android:contentDescription="@string/click_me"
     	    android:scaleType="centerCrop"
-    	    android:src="@drawable/icon" />
+    	    android:src="@drawable/dog" />
 
     	<TextView
     	    android:id="@+id/health_score_denom"
@@ -75,14 +69,19 @@
 	        android:background="?android:attr/selectableItemBackground"
 	        android:onClick="respondToMainActivityButton"
 	        android:text="@string/button_activity"/>
-    	<Button
+    	<ImageButton
 	        android:id="@+id/button_food"
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="1"
 	        android:background="?android:attr/selectableItemBackground"
 	        android:onClick="respondToMainFoodButton"
-	        android:text="@string/button_food" />
+	        android:text="@string/button_food" 
+	        android:src="@drawable/icon"
+	        />
+
+    	
+
     </LinearLayout>
     
     

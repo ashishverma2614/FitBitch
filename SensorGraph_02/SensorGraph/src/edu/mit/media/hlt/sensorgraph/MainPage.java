@@ -11,18 +11,17 @@ import java.util.Locale;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainPage extends FragmentActivity {
@@ -42,6 +41,7 @@ public class MainPage extends FragmentActivity {
 	 */
 	ViewPager mViewPager;
 	
+	int countFood = 0;
 	private static int pedoStep = 0;
 	
 	public static int getPedo() {
@@ -119,6 +119,26 @@ public class MainPage extends FragmentActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	/** Called when the user clicks the Send button */
+    public void respondToMainActivityButton(View view) {
+        // Do something in response to button
+    	Intent intent = new Intent(this, SensorGraph.class);
+    	startActivity(intent);
+    }
+	
+    /** Called when the user clicks the Send button */
+    public void respondToMainFoodButton(View view) {
+        // Do something in response to button
+    	/*Intent intent = new Intent(this, SensorGraph2.class);
+    	startActivity(intent);*/
+    	countFood++;
+    	if(countFood > 5) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.dawg);
+    	}
+    }
+	
 	
 	/** Called when the user clicks the Send button */
     public void respondToFitnessButton(View view) {
