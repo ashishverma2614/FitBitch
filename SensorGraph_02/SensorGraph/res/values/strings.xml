@@ -11,5 +11,16 @@
     <string name="click_me">Back</string>
     <string name="fitness">Fitness Report</string>
     <string name="food">Diet Report</string>
+    <string name="button_activity">ACTIVITY</string>
+    <string name="button_food">FOOD</string>
+    <string name="health_score">88</string>
+    <string name="health_score_total">/100</string>
+    <string name="health_score_title">HEALTH SCORE</string>
+    <string name="dog_name">Molly</string>
     <string name="generate_report">Generate Fitness Report</string>
+    <string name="refresh_steps">Refresh Steps</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="Steps">Steps</string>
+
 </resources>
