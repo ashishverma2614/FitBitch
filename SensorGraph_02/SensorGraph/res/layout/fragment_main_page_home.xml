@@ -1,25 +1,87 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
     tools:context=".MainPage$DummySectionFragment" >
-
+    
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="@string/generate_report" />
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="0dip"
+    	android:layout_weight="0.3">
 
-</RelativeLayout>
+    	<ImageView
+    	    android:id="@+id/myImageView"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="fill_parent"
+    	    android:contentDescription="@string/click_me"
+    	    android:scaleType="centerCrop"
+    	    android:src="@drawable/icon" />
+
+    	<TextView
+    	    android:id="@+id/health_score_denom"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignTop="@+id/myImageView"
+	        android:layout_alignRight="@+id/myImageView"
+	        android:layout_alignBottom="@+id/myImageView"
+	        android:gravity="bottom"
+    	    android:layout_marginRight="10dp"
+    	    android:layout_marginBottom="10dp"
+    	    android:text="@string/health_score_total"
+    	    android:textColor="#ffffff"
+    	    android:textSize="12sp" />
+
+    	<TextView
+    	    android:id="@+id/score"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignBaseline="@+id/health_score_denom"
+    	    android:layout_alignBottom="@+id/health_score_denom"
+    	    android:layout_toLeftOf="@+id/health_score_denom"
+    	    android:gravity="right"
+    	    android:text="@string/health_score"
+    	    android:textColor="#ffffff"
+    	    android:textSize="50sp" />
+
+    	<TextView
+    	    android:id="@+id/health_score_title"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignBaseline="@+id/score"
+    	    android:layout_alignBottom="@+id/score"
+    	    android:layout_toLeftOf="@+id/score"
+    	    android:gravity="bottom"
+    	    android:text="@string/health_score_title"
+    	    android:textColor="#00ffff"
+    	    android:textSize="12sp" />
+
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="0dip"
+    	android:layout_weight="0.7">
+        <Button
+	        android:id="@+id/button_activity"
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="?android:attr/selectableItemBackground"
+	        android:text="@string/button_activity"/>
+    	<Button
+	        android:id="@+id/button_food"
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="?android:attr/selectableItemBackground"
+	        android:text="@string/button_food" />
+    </LinearLayout>
+    
+    
+</LinearLayout>
