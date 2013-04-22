@@ -8,7 +8,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Locale;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -94,11 +93,27 @@ public class MainPage extends FragmentActivity {
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
-
+		
+		
+		String myParam = "";
+		Bundle extras = getIntent().getExtras();
+	    if (extras != null)
+	    {
+	        myParam = extras.getString("toOpen");
+	    }
+	    
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		mViewPager.setCurrentItem(1);
+		if(myParam.equals("0"))
+			mViewPager.setCurrentItem(0);
+		else if(myParam.equals("2"))
+			mViewPager.setCurrentItem(2);
+		else
+			mViewPager.setCurrentItem(1);
+
+		
+		
 		
 
 	}
@@ -107,7 +122,7 @@ public class MainPage extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		//getMenuInflater().inflate(R.menu.main_page, menu);
-		menu.add(1,1,menu.FIRST, "Settings");
+		menu.add(1,1,menu.FIRST, "Generate Report").setIcon(R.drawable.ic_menu_send);;
 		return true;
 	}
 	
@@ -208,21 +223,37 @@ public class MainPage extends FragmentActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	    	
+    }
+    
+    public void respondToRefreshLastFedButton(View view) {
+    	// Do something in response to button
     	
-    	System.out.println("refrash" + pedoStep);
-    	
-    	//update the page with the textview count
-    	//this fucking shit didn't work goddamnit
-    	//figure out how to update a fucking text view box how hard could it honestly be you fucking prick
-    	//you should delete all the shit relating to updateTextView and that shit that you did cause you're a fucking moron
-    	//you're honestly a pathetic piece of shit what's wrong with you why can't you code a single number updating jesus christ go kill yourself
-    	//justkidding, don't kill yourself
-    	//that would be too easy
-    	//live a long and terrible life with the ugliness and unattractiveness that you are
-    	//updateTextView("" + pedoStep);
-    	
-    	//super.onResume();
-    	
+    	String FILENAME = "hello_file";
+    	FileInputStream fis;
+    	byte[] bs = new byte[4];
+    	try {
+			fis = openFileInput(FILENAME);
+			int i = fis.read(bs);
+			
+			System.out.println("Number of bytes read: "+i);
+	        
+	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
+	        wrapped.order(ByteOrder.LITTLE_ENDIAN);
+	        i = wrapped.getInt();
+	        pedoStep += i;
+			fis.close();
+			
+			File dir = getFilesDir();
+			File file = new File(dir, FILENAME);
+			file.delete();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	    	
     }
     
     

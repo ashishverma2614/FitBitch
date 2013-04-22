@@ -75,6 +75,7 @@ public class SensorGraph2 extends Activity {
     public void respondToButton(View view) {
         // Do something in response to button
     	Intent intent = new Intent(this, MainPage.class);
+    	intent.putExtra("toOpen", "2");
     	startActivity(intent);
     }
     
