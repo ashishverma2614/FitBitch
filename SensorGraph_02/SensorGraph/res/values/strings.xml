@@ -21,6 +21,7 @@
     <string name="refresh_steps">Refresh Steps</string>
     <string name="title_activity_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="Steps">Steps</string>
+    <string name="pedo_steps_title">STEPS TODAY</string>
+    <string name="activity_data_button">Open Activity Data</string>
 
 </resources>
