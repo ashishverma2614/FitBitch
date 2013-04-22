@@ -82,15 +82,12 @@
             Serial.print(keyValueInput[0].key);
             Serial.print("\t");
             Serial.println(keyValueInput[0].value); */
-            
-            // send int of weight of food, to be parsed and put in the sensor graph
-            meetAndroid.receive();
+
+
+			meetAndroid.receive();
             meetAndroid.send((int)initialFoodWeight);
-            
-            // send time as string, to be displayed by Android but not parsed by sensor graph
-            Serial.println(now());
-            
-            
+
+			
             /*
             Serial.print("Current time: ");
             Serial.println(now());

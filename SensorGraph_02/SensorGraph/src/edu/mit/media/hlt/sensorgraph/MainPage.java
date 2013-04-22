@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Locale;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +43,7 @@ public class MainPage extends FragmentActivity {
 	ViewPager mViewPager;
 	
 	int countFood = 0;
+	int countActivity = 0;
 	private static int pedoStep = 0;
 	
 	public static int getPedo() {
@@ -123,8 +125,24 @@ public class MainPage extends FragmentActivity {
 	/** Called when the user clicks the Send button */
     public void respondToMainActivityButton(View view) {
         // Do something in response to button
-    	Intent intent = new Intent(this, SensorGraph.class);
-    	startActivity(intent);
+    	/*Intent intent = new Intent(this, SensorGraph.class);
+    	startActivity(intent);*/
+    	
+    	
+    	countActivity++;
+    	if((countActivity / 5) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.activity_0);
+    	}
+    	else if((countActivity / 5 + 2) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.activity_1);
+    	}
+    	else if((countActivity / 5 + 1) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.activity_2);
+    	}
+    	
     }
 	
     /** Called when the user clicks the Send button */
@@ -133,10 +151,19 @@ public class MainPage extends FragmentActivity {
     	/*Intent intent = new Intent(this, SensorGraph2.class);
     	startActivity(intent);*/
     	countFood++;
-    	if(countFood > 5) {
+    	if((countFood / 5) % 3 == 0 ) {
 	    	ImageButton i = (ImageButton) view;
-	        i.setImageResource(R.drawable.dawg);
+	        i.setImageResource(R.drawable.food_0);
     	}
+    	else if((countFood / 5 + 2) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.food_1);
+    	}
+    	else if((countFood / 5 + 1) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.food_2);
+    	}
+    	
     }
 	
 	
