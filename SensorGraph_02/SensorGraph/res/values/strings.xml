@@ -22,5 +22,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="Steps">Steps</string>
+    <string name="time_last_fed">Time last fed: </string>
+    <string name="amount_last_fed">Amount last fed: </string>
 
 </resources>
