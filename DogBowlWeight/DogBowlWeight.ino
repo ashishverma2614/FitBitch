@@ -82,9 +82,12 @@
             Serial.print(keyValueInput[0].key);
             Serial.print("\t");
             Serial.println(keyValueInput[0].value); */
-            
-            meetAndroid.receive();
+
+
+			meetAndroid.receive();
             meetAndroid.send((int)initialFoodWeight);
+
+			
             /*
             Serial.print("Current time: ");
             Serial.println(now());

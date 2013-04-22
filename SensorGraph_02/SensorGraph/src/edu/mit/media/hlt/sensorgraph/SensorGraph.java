@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -74,7 +76,9 @@ public class SensorGraph extends Activity {
     /** Called when the user clicks the Send button */
     public void respondToButton(View view) {
         // Do something in response to button
+    	
     	Intent intent = new Intent(this, MainPage.class);
+   		intent.putExtra("toOpen", "0");
     	startActivity(intent);
     }
     

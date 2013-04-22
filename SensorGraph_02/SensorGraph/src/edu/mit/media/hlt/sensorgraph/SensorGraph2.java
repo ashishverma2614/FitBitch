@@ -18,6 +18,9 @@
 */
 package edu.mit.media.hlt.sensorgraph;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -65,13 +68,14 @@ public class SensorGraph2 extends Activity {
         
         mGraph.setMaxValue(1024);
         
-        
     }
+        
     
     /** Called when the user clicks the Send button */
     public void respondToButton(View view) {
         // Do something in response to button
     	Intent intent = new Intent(this, MainPage.class);
+    	intent.putExtra("toOpen", "2");
     	startActivity(intent);
     }
     
@@ -117,14 +121,19 @@ public class SensorGraph2 extends Activity {
 			final int dataType = intent.getIntExtra(AmarinoIntent.EXTRA_DATA_TYPE, -1);
 			
 			// we only expect String data though, but it is better to check if really string was sent
-			// later Amarino will support differnt data types, so far data comes always as string and
+			// later Amarino will support different data types, so far data comes always as string and
 			// you have to parse the data to the type you have sent from Arduino, like it is shown below
 			if (dataType == AmarinoIntent.STRING_EXTRA){
 				data = intent.getStringExtra(AmarinoIntent.EXTRA_DATA);
 				
 				if (data != null){
-					mValueTV.setText(data);
+				  //  mValueTV.setText(data);
 					try {
+			            String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+			            //textView is the TextView view that should display it
+			            mValueTV.setText(getString(R.string.time_last_fed) + currentDateTimeString + "\n" 
+			            		+ getString(R.string.amount_last_fed) + data + "g");
+					    
 						// since we know that our string value is an int number we can parse it to an integer
 						final int sensorReading = Integer.parseInt(data);
 						mGraph.addDataPoint(sensorReading);
