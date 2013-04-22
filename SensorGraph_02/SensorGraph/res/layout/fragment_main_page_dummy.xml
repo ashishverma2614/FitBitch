@@ -1,40 +1,99 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".MainPage$DummySectionFragment" >
-
-
     
-    <TextView
-        android:id="@+id/pedo_steps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+   <RelativeLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="0dip"
+    	android:layout_weight="0.3">
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
-        android:onClick="respondToFitnessButton"
-        android:text="@string/fitness" />
+       
+    	<ImageView
+    	    android:id="@+id/myImageView"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="fill_parent"
+    	    android:contentDescription="@string/click_me"
+    	    android:scaleType="centerCrop"
+    	    android:src="@drawable/dog" />
+    	
+    	<TextView
+	        android:id="@+id/pedo_steps"
+	         android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignTop="@+id/myImageView"
+	        android:layout_alignRight="@+id/myImageView"
+	        android:layout_alignBottom="@+id/myImageView"
+	        android:gravity="bottom"
+	        android:layout_marginLeft="5dp"
+    	    android:layout_marginRight="10dp"
+    	    android:layout_marginBottom="10dp"
+    	    android:text="0"
+    	    android:textColor="#ffffff"
+    	    android:textSize="40sp" />
+    	
+    	<TextView
+    	    android:id="@+id/pedo_steps_title"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignBaseline="@+id/pedo_steps"
+    	    android:layout_alignBottom="@+id/pedo_steps"
+    	    android:layout_toLeftOf="@+id/pedo_steps"
+    	    android:gravity="right"
+    	    android:text="@string/pedo_steps_title"
+    	    android:textColor="#00ffff"
+    	    android:textSize="12sp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/section_label"
-        android:layout_marginTop="27dp"
-        android:layout_toRightOf="@+id/section_label"
-        android:text="@string/refresh_steps" 
-        android:onClick="respondToRefreshPedoButton"
-        />
+    	<ImageButton
+    	    android:id="@+id/button2"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignParentRight="true"
+    	    android:layout_alignParentTop="true"
+    	    android:layout_margin="5dp"
+    	    android:background="?android:attr/selectableItemBackground"
+    	    android:onClick="respondToRefreshPedoButton"
+    	    android:src="@drawable/ic_menu_refresh" />
+    	
+    </RelativeLayout>
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="0dip"
+    	android:layout_weight="0.7">
+
+        <ImageView
+    	    android:id="@+id/myImageView"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="fill_parent"
+    	    android:contentDescription="@string/click_me"
+    	    android:scaleType="centerCrop"
+    	    android:src="@drawable/dog" />
+        
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/open_activity_data_button"
+            android:layout_alignBottom="@+id/open_activity_data_button"
+            android:layout_alignParentRight="true"
+            android:onClick="respondToFitnessButton"
+            android:text="@string/fitness" />
+
+        <Button
+            android:id="@+id/open_activity_data_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="21dp"
+            android:layout_toLeftOf="@+id/button1"
+            android:onClick="respondToOpenActivityDataButton"
+            android:text="@string/activity_data_button" />
+
+    </RelativeLayout>
+
+   
 
 
-</RelativeLayout>
+</LinearLayout>

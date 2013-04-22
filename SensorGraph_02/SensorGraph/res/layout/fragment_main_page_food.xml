@@ -22,5 +22,16 @@
         android:layout_marginBottom="23dp"
         android:onClick="respondToFoodButton"
         android:text="@string/food" />
+    
+    <ImageButton
+    	    android:id="@+id/refresh_last_fed_button"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignParentRight="true"
+    	    android:layout_alignParentTop="true"
+    	    android:layout_margin="5dp"
+    	    android:background="?android:attr/selectableItemBackground"
+    	    android:onClick="respondToRefreshLastFedButton"
+    	    android:src="@drawable/ic_menu_refresh" />
 
 </RelativeLayout>
