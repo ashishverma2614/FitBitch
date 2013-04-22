@@ -18,6 +18,8 @@
 */
 package edu.mit.media.hlt.sensorgraph;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,12 +30,10 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import at.abraxas.amarino.Amarino;
 import at.abraxas.amarino.AmarinoIntent;
@@ -134,9 +134,9 @@ public class SensorGraph2 extends Activity {
 				  //  mValueTV.setText(data);
 					try {
 			            long currentDateTimeLong = new Date().getTime();
+			            System.out.println(currentDateTimeLong);
 			            int a = (int)(currentDateTimeLong >> 32);
 			            int b = (int)currentDateTimeLong;
-			            
 			            String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 			            //textView is the TextView view that should display it
 			            mValueTV.setText(getString(R.string.time_last_fed) + currentDateTimeString + "\n" 
@@ -148,6 +148,7 @@ public class SensorGraph2 extends Activity {
 						
 						String FILENAME = "hello_file2";
 						FileOutputStream fos;
+						DataOutputStream dos;
 						try {
 							File dir = getFilesDir();
 							File file = new File(dir, FILENAME);
@@ -155,10 +156,15 @@ public class SensorGraph2 extends Activity {
 							//if (deleted) {
 								System.out.println(FILENAME);
 								fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-								
-								fos.write(a);
+								dos = new DataOutputStream (fos);
+								dos.writeLong(currentDateTimeLong);
+								/*fos.write(a);
 								fos.write(b);
+								System.out.println("after a: " + a);
+								System.out.println("after b: " + b);*/
+								dos.close();
 								fos.close();
+								
 							//}
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();

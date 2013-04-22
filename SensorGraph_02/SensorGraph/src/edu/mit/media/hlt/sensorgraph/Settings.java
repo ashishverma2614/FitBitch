@@ -2,6 +2,7 @@ package edu.mit.media.hlt.sensorgraph;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +17,7 @@ public class Settings extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-		addListenerOnButton();
+		//addListenerOnButton();
 	}
 
 	@Override
@@ -26,7 +27,16 @@ public class Settings extends Activity {
 		return true;
 	}
 	
-	public void addListenerOnButton() {
+	public void respondToSendButton(View view) {
+		Intent intent = new Intent(this, MainPage.class);
+    	startActivity(intent);
+    	
+		Toast.makeText(Settings.this,
+				"Data Sent", Toast.LENGTH_SHORT).show();
+    	
+	}
+	
+/*	public void addListenerOnButton() {
 		
 		final RadioGroup radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
 		Button btnDisplay = (Button) findViewById(R.id.btnDisplay);
@@ -47,6 +57,6 @@ public class Settings extends Activity {
 	 
 			}
 		});
-	}
+	}*/
 
 }

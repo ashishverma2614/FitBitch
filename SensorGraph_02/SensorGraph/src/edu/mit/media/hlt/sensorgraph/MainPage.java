@@ -1,5 +1,6 @@
 package edu.mit.media.hlt.sensorgraph;
 
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -235,18 +236,30 @@ public class MainPage extends FragmentActivity {
     
     public void respondToRefreshLastFedButton(View view) {
     	// Do something in response to button
-    	
     	String FILENAME = "hello_file2";
     	FileInputStream fis;
+    	DataInputStream dis;
     	byte[] bs = new byte[8];
+    	System.out.println("poopies");
     	try {
 			fis = openFileInput(FILENAME);
-			long l = fis.read(bs);
-			System.out.println("Number of bytes read: "+l);
-	        
+			dis = new DataInputStream(fis);
+			date = dis.readLong();
+			/*
+			//long l = fis.read(bs);
+			int a = fis.read(bs);
+			//int b = fis.read(bs);
+			System.out.println("a: " + a);
+			
+			//long l = (long)a << 32 | b & 0xFFFFFFFFL;
+			System.out.println("Number of bytes read: "+a);
+			
 	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
-	        wrapped.order(ByteOrder.LITTLE_ENDIAN);
-	        date = wrapped.getLong();
+	        //wrapped.order(ByteOrder.LITTLE_ENDIAN);
+	        date = wrapped.getLong();*/
+	        
+	        System.out.println("hi " + date);
+	        dis.close();
 			fis.close();
 			
 			File dir = getFilesDir();
@@ -384,7 +397,7 @@ public class MainPage extends FragmentActivity {
 	                //mHandler.postAtTime(mTicker, next);
 	    			mStep.setText(Integer.toString(getPedo()));
 	    			
-	    			System.out.println("Steps: " + pedoStep);
+	    			//System.out.println("Steps: " + pedoStep);
 	    			mHandler.postDelayed(this, 1000);
 	            }
 	        };
@@ -472,7 +485,7 @@ public class MainPage extends FragmentActivity {
 	                //mHandler.postAtTime(mTicker, next);
 	    			mStep.setText(getDate());
 	    			
-	    			System.out.println("Date: " + getDate());
+	    			//System.out.println("Date: " + getDate());
 	    			mHandler.postDelayed(this, 1000);
 	            }
 	        };

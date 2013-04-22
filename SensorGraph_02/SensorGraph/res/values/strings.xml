@@ -31,7 +31,7 @@
     <string name="radio_activity">Activity</string>
     <string name="btn_Send">Send</string>
     <string name="radio_both">Both</string>
-    <string name="Send_Data">Send Data</string>
+    <string name="Send_Data">Select Data To Send</string>
     <string name="insert_email">Send to (enter e-mail):</string>
 
 
