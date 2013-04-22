@@ -26,5 +26,7 @@
     <string name="Steps">Steps</string>
     <string name="time_last_fed">Time last fed: </string>
     <string name="amount_last_fed">Amount last fed: </string>
+    <string name="bowl_weight">Weight </string>
+    
 
 </resources>

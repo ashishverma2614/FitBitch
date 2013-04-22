@@ -18,6 +18,10 @@
 */
 package edu.mit.media.hlt.sensorgraph;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -129,6 +133,10 @@ public class SensorGraph2 extends Activity {
 				if (data != null){
 				  //  mValueTV.setText(data);
 					try {
+			            long currentDateTimeLong = new Date().getTime();
+			            int a = (int)(currentDateTimeLong >> 32);
+			            int b = (int)currentDateTimeLong;
+			            
 			            String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 			            //textView is the TextView view that should display it
 			            mValueTV.setText(getString(R.string.time_last_fed) + currentDateTimeString + "\n" 
@@ -137,6 +145,26 @@ public class SensorGraph2 extends Activity {
 						// since we know that our string value is an int number we can parse it to an integer
 						final int sensorReading = Integer.parseInt(data);
 						mGraph.addDataPoint(sensorReading);
+						
+						String FILENAME = "hello_file2";
+						FileOutputStream fos;
+						try {
+							File dir = getFilesDir();
+							File file = new File(dir, FILENAME);
+							boolean deleted = file.delete();
+							//if (deleted) {
+								System.out.println(FILENAME);
+								fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+								
+								fos.write(a);
+								fos.write(b);
+								fos.close();
+							//}
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 						
 					} 
 					catch (NumberFormatException e) { /* oh data was not an integer */ }
