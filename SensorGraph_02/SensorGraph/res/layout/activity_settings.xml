@@ -8,9 +8,58 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Settings" >
 
-    <TextView
+
+     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/Send_Data"
+        android:textSize="36sp" />
+    
+    	<RadioGroup
+       	 	android:id="@+id/radioSex"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content" >
+ 
+        <RadioButton
+            android:id="@+id/radioFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_food" 
+            android:textSize="24sp" />
+ 
+        <RadioButton
+            android:id="@+id/radioActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/radio_activity" />
+        
+       <RadioButton
+            android:id="@+id/radioBoth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/radio_both" />
+ 
+    </RadioGroup>
+
+    	<TextView
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/insert_email"
+        	android:textSize="16sp" />
+    	
+    	<EditText
+    	    android:id="@+id/editText1"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:inputType="textEmailAddress" />
+    	
+    	<Button
+    	    android:id="@+id/btnDisplay"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/btn_Send" />
 
 </RelativeLayout>

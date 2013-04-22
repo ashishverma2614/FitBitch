@@ -27,6 +27,12 @@
     <string name="time_last_fed">Time last fed: </string>
     <string name="amount_last_fed">Amount last fed: </string>
     <string name="bowl_weight">Weight </string>
-    
+    <string name="radio_food">Food</string>
+    <string name="radio_activity">Activity</string>
+    <string name="btn_Send">Send</string>
+    <string name="radio_both">Both</string>
+    <string name="Send_Data">Send Data</string>
+    <string name="insert_email">Send to (enter e-mail):</string>
+
 
 </resources>
