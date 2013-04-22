@@ -1,11 +1,14 @@
 package edu.mit.media.hlt.sensorgraph;
 
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -44,6 +47,11 @@ public class MainPage extends FragmentActivity {
 	int countFood = 0;
 	int countActivity = 0;
 	private static int pedoStep = 0;
+	private static long date = 0;
+	
+	public static String getDate() {
+		return DateFormat.getDateTimeInstance().format(new Date(date));
+	}
 	
 	public static int getPedo() {
 		/*String FILENAME = "hello_file";
@@ -228,20 +236,30 @@ public class MainPage extends FragmentActivity {
     
     public void respondToRefreshLastFedButton(View view) {
     	// Do something in response to button
-    	
-    	String FILENAME = "hello_file";
+    	String FILENAME = "hello_file2";
     	FileInputStream fis;
-    	byte[] bs = new byte[4];
+    	DataInputStream dis;
+    	byte[] bs = new byte[8];
+    	System.out.println("poopies");
     	try {
 			fis = openFileInput(FILENAME);
-			int i = fis.read(bs);
+			dis = new DataInputStream(fis);
+			date = dis.readLong();
+			/*
+			//long l = fis.read(bs);
+			int a = fis.read(bs);
+			//int b = fis.read(bs);
+			System.out.println("a: " + a);
 			
-			System.out.println("Number of bytes read: "+i);
-	        
+			//long l = (long)a << 32 | b & 0xFFFFFFFFL;
+			System.out.println("Number of bytes read: "+a);
+			
 	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
-	        wrapped.order(ByteOrder.LITTLE_ENDIAN);
-	        i = wrapped.getInt();
-	        pedoStep += i;
+	        //wrapped.order(ByteOrder.LITTLE_ENDIAN);
+	        date = wrapped.getLong();*/
+	        
+	        System.out.println("hi " + date);
+	        dis.close();
 			fis.close();
 			
 			File dir = getFilesDir();
@@ -379,7 +397,7 @@ public class MainPage extends FragmentActivity {
 	                //mHandler.postAtTime(mTicker, next);
 	    			mStep.setText(Integer.toString(getPedo()));
 	    			
-	    			System.out.println(pedoStep);
+	    			//System.out.println("Steps: " + pedoStep);
 	    			mHandler.postDelayed(this, 1000);
 	            }
 	        };
@@ -424,9 +442,8 @@ public class MainPage extends FragmentActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_page_home,
 					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			/*dummyTextView.setText(Integer.toString(getArguments().getInt(
+			/*TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
+			dummyTextView.setText(Integer.toString(getArguments().getInt(
 					ARG_SECTION_NUMBER)));*/
 			return rootView;
 		}
@@ -439,7 +456,12 @@ public class MainPage extends FragmentActivity {
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-
+		private Runnable mTicker;
+	    private Handler mHandler;
+	    TextView mStep;
+		
+	    private boolean mClockStopped = false;
+	    
 		public FoodSectionFragment() {
 		}
 
@@ -448,8 +470,29 @@ public class MainPage extends FragmentActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_page_food,
 					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
+			
+			mStep = (TextView) rootView.findViewById(R.id.bowl_weight);
+	        
+	        
+			mHandler = new Handler();
+
+	        mTicker = new Runnable() {
+	            public void run() {
+	                if(mClockStopped) return;
+	                //mCalendar.setTimeInMillis(System.currentTimeMillis());
+	                mStep.setText(getDate());
+	                mStep.invalidate();
+	                //mHandler.postAtTime(mTicker, next);
+	    			mStep.setText(getDate());
+	    			
+	    			//System.out.println("Date: " + getDate());
+	    			mHandler.postDelayed(this, 1000);
+	            }
+	        };
+	        
+	        mHandler.postDelayed(mTicker, 1000);
+	        //mTicker.run();
+			
 			/*dummyTextView.setText(Integer.toString(getArguments().getInt(
 					ARG_SECTION_NUMBER)));*/
 			return rootView;
