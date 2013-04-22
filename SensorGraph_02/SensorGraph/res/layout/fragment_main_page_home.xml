@@ -69,7 +69,8 @@
 	        android:background="?android:attr/selectableItemBackground"
 	        android:onClick="respondToMainActivityButton"
 	        android:text="@string/button_activity"
-	        android:src="@drawable/icon"
+	        android:src="@drawable/activity_0"
+	        android:scaleType="fitXY"
 	        />
     	<ImageButton
 	        android:id="@+id/button_food"
@@ -79,7 +80,8 @@
 	        android:background="?android:attr/selectableItemBackground"
 	        android:onClick="respondToMainFoodButton"
 	        android:text="@string/button_food" 
-	        android:src="@drawable/icon"
+	        android:src="@drawable/food_0"
+	        android:scaleType="fitXY"
 	        />
 
     	
