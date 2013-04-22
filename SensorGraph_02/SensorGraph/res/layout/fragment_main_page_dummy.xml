@@ -33,18 +33,6 @@
     	    android:text="0"
     	    android:textColor="#ffffff"
     	    android:textSize="40sp" />
-    	
-    	<TextView
-    	    android:id="@+id/pedo_steps_title"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_alignBaseline="@+id/pedo_steps"
-    	    android:layout_alignBottom="@+id/pedo_steps"
-    	    android:layout_toLeftOf="@+id/pedo_steps"
-    	    android:gravity="right"
-    	    android:text="@string/pedo_steps_title"
-    	    android:textColor="#00ffff"
-    	    android:textSize="12sp" />
 
     	<ImageButton
     	    android:id="@+id/button2"
@@ -56,6 +44,19 @@
     	    android:background="?android:attr/selectableItemBackground"
     	    android:onClick="respondToRefreshPedoButton"
     	    android:src="@drawable/ic_menu_refresh" />
+
+    	<TextView
+    	    android:id="@+id/pedo_steps_title"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignBaseline="@+id/pedo_steps"
+    	    android:layout_alignBottom="@+id/pedo_steps"
+    	    android:layout_marginRight="17dp"
+    	    android:layout_toLeftOf="@+id/button2"
+    	    android:gravity="right"
+    	    android:text="@string/pedo_steps_title"
+    	    android:textColor="#00ffff"
+    	    android:textSize="12sp" />
     	
     </RelativeLayout>
     <RelativeLayout 
@@ -63,21 +64,23 @@
     	android:layout_height="0dip"
     	android:layout_weight="0.7">
 
-        <ImageView
-    	    android:id="@+id/myImageView"
+        <ImageButton
+    	    android:id="@+id/activityImageButton"
     	    android:layout_width="fill_parent"
     	    android:layout_height="fill_parent"
     	    android:contentDescription="@string/click_me"
     	    android:scaleType="centerCrop"
-    	    android:src="@drawable/dog" />
-        
+    	    android:src="@drawable/activity_page_0" 
+    	    android:onClick="respondToActivityImageButton"
+    	    
+    	    />
+
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/open_activity_data_button"
-            android:layout_alignBottom="@+id/open_activity_data_button"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:onClick="respondToFitnessButton"
             android:text="@string/fitness" />
 
@@ -85,8 +88,8 @@
             android:id="@+id/open_activity_data_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="21dp"
+            android:layout_alignBaseline="@+id/button1"
+            android:layout_alignBottom="@+id/button1"
             android:layout_toLeftOf="@+id/button1"
             android:onClick="respondToOpenActivityDataButton"
             android:text="@string/activity_data_button" />

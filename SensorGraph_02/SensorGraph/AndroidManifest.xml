@@ -7,7 +7,7 @@
 
     <application
         android:debuggable="true"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/dawg2"
         android:label="@string/app_name" >
         <activity
             android:name="edu.mit.media.hlt.sensorgraph.MainPage"

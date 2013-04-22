@@ -204,6 +204,24 @@ public class MainPage extends FragmentActivity {
     	startActivity(intent);
     }
     
+    /** Called when the user clicks the Send button */
+    public void respondToActivityImageButton(View view) {
+        // Do something in response to button
+
+    	if((countActivity / 5) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.activity_page_0);
+    	}
+    	else if((countActivity / 5 + 2) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.activity_page_1);
+    	}
+    	else if((countActivity / 5 + 1) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.activity_page_2);
+    	}
+    }
+    
     public void respondToRefreshPedoButton(View view) {
     	// Do something in response to button
     	
