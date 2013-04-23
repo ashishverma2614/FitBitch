@@ -58,7 +58,7 @@ public class MainPage extends FragmentActivity {
 	private static long date = 0;
 	
 	public static String getDate() {
-		String strDateFormat = "HH:mm:ss a";
+		String strDateFormat = "HH:mm a";
 	    SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
 		return sdf.format(new Date(date));
 	}
@@ -290,7 +290,7 @@ public class MainPage extends FragmentActivity {
     
     public void respondToRefreshLastFedButton(View view) {
     	// Do something in response to button
-    	/*String FILENAME = "hello_file2";
+    	String FILENAME = "hello_file2";
     	FileInputStream fis;
     	DataInputStream dis;
     	byte[] bs = new byte[8];
@@ -298,8 +298,7 @@ public class MainPage extends FragmentActivity {
     	try {
 			fis = openFileInput(FILENAME);
 			dis = new DataInputStream(fis);
-			date = dis.readLong();*/
-    	//this was commented twice
+			date = dis.readLong();
 			/*
 			//long l = fis.read(bs);
 			int a = fis.read(bs);
@@ -313,7 +312,7 @@ public class MainPage extends FragmentActivity {
 	        //wrapped.order(ByteOrder.LITTLE_ENDIAN);
 	        date = wrapped.getLong();*/
 	        //end of commenting twice
-    	/*
+    	
 	        System.out.println("hi " + date);
 	        dis.close();
 			fis.close();
@@ -326,7 +325,7 @@ public class MainPage extends FragmentActivity {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
     	    	
     }
     
@@ -560,8 +559,8 @@ public class MainPage extends FragmentActivity {
 	private static final String TAG = "SensorGraph";
 	
 	// change this to your Bluetooth device address 
-	private static final String DEVICE_ADDRESS =  "20:13:01:23:00:55"; //"00:06:66:03:73:7B";
-	
+	//private static final String DEVICE_ADDRESS =  "20:13:01:23:00:55"; //"00:06:66:03:73:7B";
+	private static final String DEVICE_ADDRESS =  "20:13:01:22:13:61";
 	private GraphView mGraph; 
 	private TextView mValueTV;
 	
@@ -640,7 +639,7 @@ public class MainPage extends FragmentActivity {
 						// since we know that our string value is an int number we can parse it to an integer
 						final int sensorReading = Integer.parseInt(data);
 						//mGraph.addDataPoint(sensorReading);
-						if(sensorReading > 110) {
+						if(sensorReading > 110 && address.equals("20:13:01:23:00:55")) {
 							pedoStep++;
 							/*String FILENAME = "hello_file";
 							FileOutputStream fos;
