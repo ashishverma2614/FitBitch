@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -11,7 +12,12 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import edu.mit.media.hlt.sensorgraph.SensorGraph.ArduinoReceiver;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -26,6 +32,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import at.abraxas.amarino.Amarino;
+import at.abraxas.amarino.AmarinoIntent;
 
 public class MainPage extends FragmentActivity {
 
@@ -46,7 +54,7 @@ public class MainPage extends FragmentActivity {
 	
 	int countFood = 0;
 	int countActivity = 0;
-	private static int pedoStep = 0;
+	public static int pedoStep = 0;
 	private static long date = 0;
 	
 	public static String getDate() {
@@ -103,7 +111,15 @@ public class MainPage extends FragmentActivity {
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
-		
+		//super.onCreate(savedInstanceState);
+        
+        /*setContentView(R.layout.main);
+        
+        // get handles to Views defined in our layout file
+       /* mGraph = (GraphView)findViewById(R.id.graph);
+        mValueTV = (TextView) findViewById(R.id.value);
+        
+        mGraph.setMaxValue(1024);
 		
 		String myParam = "";
 		Bundle extras = getIntent().getExtras();
@@ -111,15 +127,15 @@ public class MainPage extends FragmentActivity {
 	    {
 	        myParam = extras.getString("toOpen");
 	    }
-	    
+	    */
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		if(myParam.equals("0"))
+		/*if(myParam.equals("0"))
 			mViewPager.setCurrentItem(0);
 		else if(myParam.equals("2"))
 			mViewPager.setCurrentItem(2);
-		else
+		else*/
 			mViewPager.setCurrentItem(1);
 
 		
@@ -257,7 +273,7 @@ public class MainPage extends FragmentActivity {
 	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
 	        wrapped.order(ByteOrder.LITTLE_ENDIAN);
 	        i = wrapped.getInt();
-	        pedoStep += i;
+	        pedoStep = i;
 			fis.close();
 			
 			File dir = getFilesDir();
@@ -274,7 +290,7 @@ public class MainPage extends FragmentActivity {
     
     public void respondToRefreshLastFedButton(View view) {
     	// Do something in response to button
-    	String FILENAME = "hello_file2";
+    	/*String FILENAME = "hello_file2";
     	FileInputStream fis;
     	DataInputStream dis;
     	byte[] bs = new byte[8];
@@ -282,8 +298,22 @@ public class MainPage extends FragmentActivity {
     	try {
 			fis = openFileInput(FILENAME);
 			dis = new DataInputStream(fis);
-			date = dis.readLong();
-	        
+			date = dis.readLong();*/
+    	//this was commented twice
+			/*
+			//long l = fis.read(bs);
+			int a = fis.read(bs);
+			//int b = fis.read(bs);
+			System.out.println("a: " + a);
+			
+			//long l = (long)a << 32 | b & 0xFFFFFFFFL;
+			System.out.println("Number of bytes read: "+a);
+			
+	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
+	        //wrapped.order(ByteOrder.LITTLE_ENDIAN);
+	        date = wrapped.getLong();*/
+	        //end of commenting twice
+    	/*
 	        System.out.println("hi " + date);
 	        dis.close();
 			fis.close();
@@ -296,7 +326,7 @@ public class MainPage extends FragmentActivity {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
     	    	
     }
     
@@ -526,5 +556,117 @@ public class MainPage extends FragmentActivity {
 		
 	
 	}
+	
+	private static final String TAG = "SensorGraph";
+	
+	// change this to your Bluetooth device address 
+	private static final String DEVICE_ADDRESS =  "20:13:01:23:00:55"; //"00:06:66:03:73:7B";
+	
+	private GraphView mGraph; 
+	private TextView mValueTV;
+	
+	private ArduinoReceiver arduinoReceiver = new ArduinoReceiver();
+
+    
+    /** Called when the user clicks the Send button */
+    public void respondToButton(View view) {
+        // Do something in response to button
+    	
+    	/*Intent intent = new Intent(this, MainPage.class);
+   		intent.putExtra("toOpen", "0");
+    	startActivity(intent);*/
+    }
+    
+	@Override
+	protected void onStart() {
+		super.onStart();
+		// in order to receive broadcasted intents we need to register our receiver
+		registerReceiver(arduinoReceiver, new IntentFilter(AmarinoIntent.ACTION_RECEIVED));
+		
+		// this is how you tell Amarino to connect to a specific BT device from within your own code
+		Amarino.connect(this, DEVICE_ADDRESS);
+	}
+
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		
+		// if you connect in onStart() you must not forget to disconnect when your app is closed
+		Amarino.disconnect(this, DEVICE_ADDRESS);
+		
+		// do never forget to unregister a registered receiver
+		unregisterReceiver(arduinoReceiver);
+	}
+	
+
+	/**
+	 * ArduinoReceiver is responsible for catching broadcasted Amarino
+	 * events.
+	 * 
+	 * It extracts data from the intent and updates the graph accordingly.
+	 */
+	public class ArduinoReceiver extends BroadcastReceiver {
+		private int pedo = 0;
+		
+		public int getPedo() {
+			/*Intent i = new Intent(getApplicationContext(), MainPage.class);
+			i.putExtra("pedoSteps",pedo);
+			startActivity(i);*/
+			return pedo;
+		}
+		
+		
+		
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String data = null;
+			
+			// the device address from which the data was sent, we don't need it here but to demonstrate how you retrieve it
+			final String address = intent.getStringExtra(AmarinoIntent.EXTRA_DEVICE_ADDRESS);
+			
+			// the type of data which is added to the intent
+			final int dataType = intent.getIntExtra(AmarinoIntent.EXTRA_DATA_TYPE, -1);
+			
+			// we only expect String data though, but it is better to check if really string was sent
+			// later Amarino will support differnt data types, so far data comes always as string and
+			// you have to parse the data to the type you have sent from Arduino, like it is shown below
+			if (dataType == AmarinoIntent.STRING_EXTRA){
+				data = intent.getStringExtra(AmarinoIntent.EXTRA_DATA);
+				
+				if (data != null){
+					//mValueTV.setText(data);
+					try {
+						// since we know that our string value is an int number we can parse it to an integer
+						final int sensorReading = Integer.parseInt(data);
+						//mGraph.addDataPoint(sensorReading);
+						if(sensorReading > 110) {
+							pedoStep++;
+							/*String FILENAME = "hello_file";
+							FileOutputStream fos;
+							try {
+								File dir = getFilesDir();
+								File file = new File(dir, FILENAME);
+								boolean deleted = file.delete();
+								//if (deleted) {
+									System.out.println(FILENAME);
+									fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+									fos.write(pedo);
+									fos.close();
+								//}
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}*/
+						}
+					} 
+					catch (NumberFormatException e) { /* oh data was not an integer */ }
+				}
+			}
+		}
+	}
+	
+	
 
 }
