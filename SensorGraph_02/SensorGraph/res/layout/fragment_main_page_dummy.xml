@@ -51,8 +51,7 @@
     	    android:layout_height="wrap_content"
     	    android:layout_alignBaseline="@+id/pedo_steps"
     	    android:layout_alignBottom="@+id/pedo_steps"
-    	    android:layout_marginRight="17dp"
-    	    android:layout_toLeftOf="@+id/button2"
+    	    android:layout_toLeftOf="@+id/pedo_steps"
     	    android:gravity="right"
     	    android:text="@string/pedo_steps_title"
     	    android:textColor="#00ffff"
@@ -72,7 +71,6 @@
     	    android:scaleType="centerCrop"
     	    android:src="@drawable/activity_page_0" 
     	    android:onClick="respondToActivityImageButton"
-    	    
     	    />
 
         <Button

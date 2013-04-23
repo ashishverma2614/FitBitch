@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.sql.Date;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -50,7 +50,9 @@ public class MainPage extends FragmentActivity {
 	private static long date = 0;
 	
 	public static String getDate() {
-		return DateFormat.getDateTimeInstance().format(new Date(date));
+		String strDateFormat = "HH:mm:ss a";
+	    SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+		return sdf.format(new Date(date));
 	}
 	
 	public static int getPedo() {
@@ -222,6 +224,24 @@ public class MainPage extends FragmentActivity {
     	}
     }
     
+    /** Called when the user clicks the Send button */
+    public void respondToFoodImageButton(View view) {
+        // Do something in response to button
+
+    	if((countFood / 5) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.food_page_0);
+    	}
+    	else if((countFood / 5 + 2) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.food_page_1);
+    	}
+    	else if((countFood / 5 + 1) % 3 == 0 ) {
+	    	ImageButton i = (ImageButton) view;
+	        i.setImageResource(R.drawable.food_page_2);
+    	}
+    }
+    
     public void respondToRefreshPedoButton(View view) {
     	// Do something in response to button
     	
@@ -263,18 +283,6 @@ public class MainPage extends FragmentActivity {
 			fis = openFileInput(FILENAME);
 			dis = new DataInputStream(fis);
 			date = dis.readLong();
-			/*
-			//long l = fis.read(bs);
-			int a = fis.read(bs);
-			//int b = fis.read(bs);
-			System.out.println("a: " + a);
-			
-			//long l = (long)a << 32 | b & 0xFFFFFFFFL;
-			System.out.println("Number of bytes read: "+a);
-			
-	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
-	        //wrapped.order(ByteOrder.LITTLE_ENDIAN);
-	        date = wrapped.getLong();*/
 	        
 	        System.out.println("hi " + date);
 	        dis.close();
