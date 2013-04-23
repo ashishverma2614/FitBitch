@@ -4,15 +4,12 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
-import edu.mit.media.hlt.sensorgraph.SensorGraph.ArduinoReceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -55,7 +52,7 @@ public class MainPage extends FragmentActivity {
 	int countFood = 0;
 	int countActivity = 0;
 	public static int pedoStep = 0;
-	private static long date = 0;
+	public static long date = 0;
 	
 	public static String getDate() {
 		String strDateFormat = "HH:mm a";
@@ -121,21 +118,21 @@ public class MainPage extends FragmentActivity {
         
         mGraph.setMaxValue(1024);
 		
-		String myParam = "";
+		*/String myParam = "";
 		Bundle extras = getIntent().getExtras();
 	    if (extras != null)
 	    {
 	        myParam = extras.getString("toOpen");
 	    }
-	    */
+	    
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		/*if(myParam.equals("0"))
+		if(myParam.equals("0"))
 			mViewPager.setCurrentItem(0);
 		else if(myParam.equals("2"))
 			mViewPager.setCurrentItem(2);
-		else*/
+		else
 			mViewPager.setCurrentItem(1);
 
 		
@@ -560,7 +557,9 @@ public class MainPage extends FragmentActivity {
 	
 	// change this to your Bluetooth device address 
 	//private static final String DEVICE_ADDRESS =  "20:13:01:23:00:55"; //"00:06:66:03:73:7B";
-	private static final String DEVICE_ADDRESS =  "20:13:01:22:13:61";
+	private static final String DEVICE_ADDRESS =  "20:13:01:23:00:55";
+	private static final String DEVICE_ADDRESS2 =  "20:13:01:22:13:61"; //"00:06:66:03:73:7B";
+
 	private GraphView mGraph; 
 	private TextView mValueTV;
 	
@@ -584,6 +583,7 @@ public class MainPage extends FragmentActivity {
 		
 		// this is how you tell Amarino to connect to a specific BT device from within your own code
 		Amarino.connect(this, DEVICE_ADDRESS);
+		Amarino.connect(this, DEVICE_ADDRESS2);
 	}
 
 
@@ -593,6 +593,7 @@ public class MainPage extends FragmentActivity {
 		
 		// if you connect in onStart() you must not forget to disconnect when your app is closed
 		Amarino.disconnect(this, DEVICE_ADDRESS);
+		Amarino.disconnect(this, DEVICE_ADDRESS2);
 		
 		// do never forget to unregister a registered receiver
 		unregisterReceiver(arduinoReceiver);
@@ -622,8 +623,8 @@ public class MainPage extends FragmentActivity {
 			String data = null;
 			
 			// the device address from which the data was sent, we don't need it here but to demonstrate how you retrieve it
-			final String address = intent.getStringExtra(AmarinoIntent.EXTRA_DEVICE_ADDRESS);
-			
+			final String address1 = intent.getStringExtra(AmarinoIntent.EXTRA_DEVICE_ADDRESS);
+
 			// the type of data which is added to the intent
 			final int dataType = intent.getIntExtra(AmarinoIntent.EXTRA_DATA_TYPE, -1);
 			
@@ -639,7 +640,7 @@ public class MainPage extends FragmentActivity {
 						// since we know that our string value is an int number we can parse it to an integer
 						final int sensorReading = Integer.parseInt(data);
 						//mGraph.addDataPoint(sensorReading);
-						if(sensorReading > 110 && address.equals("20:13:01:23:00:55")) {
+						if(address1.equals("20:13:01:23:00:55") && sensorReading > 91) {
 							pedoStep++;
 							/*String FILENAME = "hello_file";
 							FileOutputStream fos;
@@ -659,6 +660,12 @@ public class MainPage extends FragmentActivity {
 								e.printStackTrace();
 							}*/
 						}
+						
+						if(address1.equals("20:13:01:22:13:61")) {
+							//final int sensorReading = Integer.parseInt(data);
+							date = new Date().getTime();
+						}
+						
 					} 
 					catch (NumberFormatException e) { /* oh data was not an integer */ }
 				}

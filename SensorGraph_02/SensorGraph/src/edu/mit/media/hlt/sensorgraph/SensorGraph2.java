@@ -123,7 +123,7 @@ public class SensorGraph2 extends Activity {
 			
 			// the type of data which is added to the intent
 			final int dataType = intent.getIntExtra(AmarinoIntent.EXTRA_DATA_TYPE, -1);
-			System.out.println("vagina");
+
 			// we only expect String data though, but it is better to check if really string was sent
 			// later Amarino will support different data types, so far data comes always as string and
 			// you have to parse the data to the type you have sent from Arduino, like it is shown below

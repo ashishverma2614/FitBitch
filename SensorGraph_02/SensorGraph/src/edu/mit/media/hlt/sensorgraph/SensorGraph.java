@@ -147,7 +147,7 @@ public class SensorGraph extends Activity {
 						// since we know that our string value is an int number we can parse it to an integer
 						final int sensorReading = Integer.parseInt(data);
 						mGraph.addDataPoint(sensorReading);
-						if(sensorReading > 110 && address.equals("20:13:01:23:00:55")) {
+						if(sensorReading > 91 && address.equals("20:13:01:23:00:55")) {
 							pedo++;
 							String FILENAME = "hello_file";
 							FileOutputStream fos;
