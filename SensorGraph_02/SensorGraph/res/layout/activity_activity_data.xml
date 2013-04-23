@@ -7,10 +7,40 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ActivityData" >
-    
+
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
+        android:layout_height="fill_parent"
         android:src="@drawable/activity_day_graph" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_toRightOf="@+id/button1"
+        android:onClick="respondToWeekButton"
+        android:text="Week" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_toLeftOf="@+id/button1"
+        android:onClick="respondToMonthButton"
+        android:text="Month" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:onClick="respondToDayButton"
+        android:text="Day" />
 
 </RelativeLayout>
