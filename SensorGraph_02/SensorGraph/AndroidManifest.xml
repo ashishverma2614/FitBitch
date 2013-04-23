@@ -30,6 +30,14 @@
             android:name="edu.mit.media.hlt.sensorgraph.Settings"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="edu.mit.media.hlt.sensorgraph.FoodData"
+            android:label="@string/title_activity_food_data" >
+        </activity>
+        <activity
+            android:name="edu.mit.media.hlt.sensorgraph.ActivityData"
+            android:label="@string/title_activity_activity_data" >
+        </activity>
     </application>
 
     <uses-sdk

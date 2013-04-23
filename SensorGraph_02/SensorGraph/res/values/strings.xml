@@ -23,6 +23,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="pedo_steps_title">STEPS TODAY</string>
     <string name="activity_data_button">Open Activity Data</string>
+    <string name="food_data_button">Open Food Data</string>
     <string name="Steps">Steps</string>
     <string name="time_last_fed">Time last fed: </string>
     <string name="bowl_weight_title">TIME LAST FED</string>
@@ -34,6 +35,9 @@
     <string name="radio_both">Both</string>
     <string name="Send_Data">Select Data To Send</string>
     <string name="insert_email">Send to (enter e-mail):</string>
-
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_food_graph">FoodGraph</string>
+    <string name="title_activity_food_data">FoodData</string>
+    <string name="title_activity_activity_data">ActivityData</string>
 
 </resources>

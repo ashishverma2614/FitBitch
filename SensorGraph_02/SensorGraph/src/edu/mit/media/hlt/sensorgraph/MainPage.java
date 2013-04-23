@@ -575,6 +575,13 @@ public class MainPage extends FragmentActivity {
     	startActivity(intent);*/
     }
     
+    /** Called when the user clicks the Activity Data Button */
+    public void respondToOpenActivityDataButton (View view) {
+    	// Do something in response to button
+    	Intent intent = new Intent(this, ActivityData.class);
+    	startActivity(intent);
+    }
+    
 	@Override
 	protected void onStart() {
 		super.onStart();
