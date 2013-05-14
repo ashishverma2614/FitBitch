@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.BroadcastReceiver;
@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +50,19 @@ public class MainPage extends FragmentActivity {
 	 */
 	ViewPager mViewPager;
 	
+	View left_button;
+	View right_button;
+	
 	int countFood = 0;
 	int countActivity = 0;
-	public static int pedoStep = 0;
+	public static int pedoStep = 2585;
 	public static long date = 0;
+	public static int weight = 0;
+	
+	public int getFood() {
+		
+		return countFood;
+	}
 	
 	public static String getDate() {
 		String strDateFormat = "HH:mm a";
@@ -61,33 +71,11 @@ public class MainPage extends FragmentActivity {
 	}
 	
 	public static int getPedo() {
-		/*String FILENAME = "hello_file";
-    	FileInputStream fis;
-    	byte[] bs = new byte[4];
-    	try {
-			fis = openFileInput(FILENAME);
-			int i = fis.read(bs);
-			
-			System.out.println("Number of bytes read: "+i);
-	        
-	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
-	        wrapped.order(ByteOrder.LITTLE_ENDIAN);
-	        i = wrapped.getInt();
-	        pedoStep += i;
-			fis.close();
-			
-			File dir = getFilesDir();
-			File file = new File(dir, FILENAME);
-			file.delete();
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	
-    	System.out.println("refrash" + pedoStep);*/
 		return pedoStep;
+	}
+	
+	public static int getWeight() {
+		return weight;
 	}
 	
 	public void updateTextView(String toThis) {
@@ -101,6 +89,7 @@ public class MainPage extends FragmentActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_page);
 
@@ -108,17 +97,9 @@ public class MainPage extends FragmentActivity {
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
-		//super.onCreate(savedInstanceState);
-        
-        /*setContentView(R.layout.main);
-        
-        // get handles to Views defined in our layout file
-       /* mGraph = (GraphView)findViewById(R.id.graph);
-        mValueTV = (TextView) findViewById(R.id.value);
-        
-        mGraph.setMaxValue(1024);
+
 		
-		*/String myParam = "";
+		String myParam = "";
 		Bundle extras = getIntent().getExtras();
 	    if (extras != null)
 	    {
@@ -128,6 +109,7 @@ public class MainPage extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		mViewPager.setOffscreenPageLimit(2);
 		if(myParam.equals("0"))
 			mViewPager.setCurrentItem(0);
 		else if(myParam.equals("2"))
@@ -136,7 +118,7 @@ public class MainPage extends FragmentActivity {
 			mViewPager.setCurrentItem(1);
 
 		
-		
+		 
 		
 
 	}
@@ -144,30 +126,29 @@ public class MainPage extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main_page, menu);
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_page, menu);
+		
 		menu.add(1,1,menu.FIRST, "Generate Report").setIcon(R.drawable.ic_menu_send);;
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
-		case 1:
+
 			Intent intent = new Intent(this, Settings.class);
 	    	startActivity(intent);
 			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		
 	}
 	
 	/** Called when the user clicks the Send button */
     public void respondToMainActivityButton(View view) {
-        // Do something in response to button
-    	/*Intent intent = new Intent(this, SensorGraph.class);
-    	startActivity(intent);*/
+		
+		
+    	mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager.setCurrentItem(0);	
     	
-    	
-    	countActivity++;
     	if((countActivity / 5) % 3 == 0 ) {
 	    	ImageButton i = (ImageButton) view;
 	        i.setImageResource(R.drawable.activity_0);
@@ -180,15 +161,16 @@ public class MainPage extends FragmentActivity {
 	    	ImageButton i = (ImageButton) view;
 	        i.setImageResource(R.drawable.activity_2);
     	}
-    	
+    	right_button = view;
     }
 	
     /** Called when the user clicks the Send button */
     public void respondToMainFoodButton(View view) {
-        // Do something in response to button
-    	/*Intent intent = new Intent(this, SensorGraph2.class);
-    	startActivity(intent);*/
-    	countFood++;
+    	
+    	
+    	mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager.setCurrentItem(2);	
+
     	if((countFood / 5) % 3 == 0 ) {
 	    	ImageButton i = (ImageButton) view;
 	        i.setImageResource(R.drawable.food_0);
@@ -201,7 +183,7 @@ public class MainPage extends FragmentActivity {
 	    	ImageButton i = (ImageButton) view;
 	        i.setImageResource(R.drawable.food_2);
     	}
-    	
+    	right_button = view;
     }
 	
 	
@@ -222,7 +204,7 @@ public class MainPage extends FragmentActivity {
     /** Called when the user clicks the Send button */
     public void respondToActivityImageButton(View view) {
         // Do something in response to button
-
+    	countActivity++;
     	if((countActivity / 5) % 3 == 0 ) {
 	    	ImageButton i = (ImageButton) view;
 	        i.setImageResource(R.drawable.activity_page_0);
@@ -235,12 +217,12 @@ public class MainPage extends FragmentActivity {
 	    	ImageButton i = (ImageButton) view;
 	        i.setImageResource(R.drawable.activity_page_2);
     	}
+    	
     }
     
-    /** Called when the user clicks the Send button */
     public void respondToFoodImageButton(View view) {
         // Do something in response to button
-
+    	countFood++;
     	if((countFood / 5) % 3 == 0 ) {
 	    	ImageButton i = (ImageButton) view;
 	        i.setImageResource(R.drawable.food_page_0);
@@ -255,6 +237,7 @@ public class MainPage extends FragmentActivity {
     	}
     }
     
+
     public void respondToRefreshPedoButton(View view) {
     	// Do something in response to button
     	
@@ -296,19 +279,7 @@ public class MainPage extends FragmentActivity {
 			fis = openFileInput(FILENAME);
 			dis = new DataInputStream(fis);
 			date = dis.readLong();
-			/*
-			//long l = fis.read(bs);
-			int a = fis.read(bs);
-			//int b = fis.read(bs);
-			System.out.println("a: " + a);
-			
-			//long l = (long)a << 32 | b & 0xFFFFFFFFL;
-			System.out.println("Number of bytes read: "+a);
-			
-	        ByteBuffer wrapped = ByteBuffer.wrap(bs);
-	        //wrapped.order(ByteOrder.LITTLE_ENDIAN);
-	        date = wrapped.getLong();*/
-	        //end of commenting twice
+
     	
 	        System.out.println("hi " + date);
 	        dis.close();
@@ -339,37 +310,27 @@ public class MainPage extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
-			/*Fragment fragment = new DummySectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
-			return fragment;*/
+
 			
 			Fragment f = null;
 		    switch(position){
 		    case 0:
 		    {
-			    f = new DummySectionFragment();//YourFragment
-			    // set arguments here, if required
+			    f = new DummySectionFragment();
 			    Bundle args = new Bundle();
 			    f.setArguments(args);
 			    break;
 		    }
 		    case 1:
 		    {
-		        f = new HomeSectionFragment();//YourFragment
-		        // set arguments here, if required
+		        f = new HomeSectionFragment();
 		        Bundle args = new Bundle();
 		        f.setArguments(args);
 		        break;
 		    }
 		    case 2:
 		    {   
-		        f = new FoodSectionFragment();//YourFragment
-		        // set arguments here, if required
+		        f = new FoodSectionFragment();
 		        Bundle args = new Bundle();
 		        f.setArguments(args);
 		        break;
@@ -419,7 +380,6 @@ public class MainPage extends FragmentActivity {
 	    private Handler mHandler;
 	    TextView mStep;
 	    
-	    //private static int pedoStep = 0;
 		
 	    private boolean mClockStopped = false;
 
@@ -432,30 +392,23 @@ public class MainPage extends FragmentActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_page_dummy,
 					container, false);
-			/*TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.pedo_steps);*/
 			
-	        mStep = (TextView) rootView.findViewById(R.id.pedo_steps);
-	        
+	        mStep = (TextView) rootView.findViewById(R.id.pedo_steps);	
 	        
 			mHandler = new Handler();
 
 	        mTicker = new Runnable() {
 	            public void run() {
 	                if(mClockStopped) return;
-	                //mCalendar.setTimeInMillis(System.currentTimeMillis());
 	                mStep.setText(Integer.toString(getPedo()));
 	                mStep.invalidate();
-	                //mHandler.postAtTime(mTicker, next);
 	    			mStep.setText(Integer.toString(getPedo()));
 	    			
-	    			//System.out.println("Steps: " + pedoStep);
 	    			mHandler.postDelayed(this, 1000);
 	            }
 	        };
 	        
 	        mHandler.postDelayed(mTicker, 1000);
-	        //mTicker.run();
 			
 			
 			return rootView;
@@ -494,9 +447,7 @@ public class MainPage extends FragmentActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_page_home,
 					container, false);
-			/*TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));*/
+
 			return rootView;
 		}
 		
@@ -523,6 +474,8 @@ public class MainPage extends FragmentActivity {
 			View rootView = inflater.inflate(R.layout.fragment_main_page_food,
 					container, false);
 			
+		
+			
 			mStep = (TextView) rootView.findViewById(R.id.bowl_weight);
 	        
 	        
@@ -531,22 +484,16 @@ public class MainPage extends FragmentActivity {
 	        mTicker = new Runnable() {
 	            public void run() {
 	                if(mClockStopped) return;
-	                //mCalendar.setTimeInMillis(System.currentTimeMillis());
-	                mStep.setText(getDate());
+	                mStep.setText(getDate() + "  " + weight + "g ");
 	                mStep.invalidate();
-	                //mHandler.postAtTime(mTicker, next);
-	    			mStep.setText(getDate());
+	    			mStep.setText(getDate() + "  " + weight + "g ");
 	    			
-	    			//System.out.println("Date: " + getDate());
 	    			mHandler.postDelayed(this, 1000);
 	            }
 	        };
 	        
 	        mHandler.postDelayed(mTicker, 1000);
-	        //mTicker.run();
-			
-			/*dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));*/
+
 			return rootView;
 		}
 		
@@ -565,15 +512,7 @@ public class MainPage extends FragmentActivity {
 	
 	private ArduinoReceiver arduinoReceiver = new ArduinoReceiver();
 
-    
-    /** Called when the user clicks the Send button */
-    public void respondToButton(View view) {
-        // Do something in response to button
-    	
-    	/*Intent intent = new Intent(this, MainPage.class);
-   		intent.putExtra("toOpen", "0");
-    	startActivity(intent);*/
-    }
+
     
     /** Called when the user clicks the Activity Data Button */
     public void respondToOpenActivityDataButton (View view) {
@@ -617,9 +556,6 @@ public class MainPage extends FragmentActivity {
 		private int pedo = 0;
 		
 		public int getPedo() {
-			/*Intent i = new Intent(getApplicationContext(), MainPage.class);
-			i.putExtra("pedoSteps",pedo);
-			startActivity(i);*/
 			return pedo;
 		}
 		
@@ -646,31 +582,14 @@ public class MainPage extends FragmentActivity {
 					try {
 						// since we know that our string value is an int number we can parse it to an integer
 						final int sensorReading = Integer.parseInt(data);
-						//mGraph.addDataPoint(sensorReading);
 						if(address1.equals("20:13:01:23:00:55") && sensorReading > 91) {
 							pedoStep++;
-							/*String FILENAME = "hello_file";
-							FileOutputStream fos;
-							try {
-								File dir = getFilesDir();
-								File file = new File(dir, FILENAME);
-								boolean deleted = file.delete();
-								//if (deleted) {
-									System.out.println(FILENAME);
-									fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-									fos.write(pedo);
-									fos.close();
-								//}
-							} catch (FileNotFoundException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}*/
+			
 						}
 						
 						if(address1.equals("20:13:01:22:13:61")) {
-							//final int sensorReading = Integer.parseInt(data);
 							date = new Date().getTime();
+							weight = sensorReading;
 						}
 						
 					} 
@@ -679,7 +598,4 @@ public class MainPage extends FragmentActivity {
 			}
 		}
 	}
-	
-	
-
 }

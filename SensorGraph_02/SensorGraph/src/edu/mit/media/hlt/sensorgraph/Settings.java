@@ -36,27 +36,6 @@ public class Settings extends Activity {
     	
 	}
 	
-/*	public void addListenerOnButton() {
-		
-		final RadioGroup radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
-		Button btnDisplay = (Button) findViewById(R.id.btnDisplay);
-	 
-		btnDisplay.setOnClickListener(new OnClickListener() {
-	 
-			@Override
-			public void onClick(View v) {
-	 
-			        // get selected radio button from radioGroup
-				int selectedId = radioSexGroup.getCheckedRadioButtonId();
-	 
-				// find the radiobutton by returned id
-			        RadioButton radioSexButton = (RadioButton) findViewById(selectedId);
-	 
-				Toast.makeText(Settings.this,
-					radioSexButton.getText(), Toast.LENGTH_SHORT).show();
-	 
-			}
-		});
-	}*/
+
 
 }

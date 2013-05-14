@@ -3,6 +3,7 @@ package edu.mit.media.hlt.sensorgraph;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
 
 public class ActivityData extends Activity {
@@ -26,17 +27,17 @@ public class ActivityData extends Activity {
 	
 	
 	 /** Called when the user clicks the Activity Data Button */
-   public void respondToDayButton () {
+   public void respondToDayButton (View view) {
    	imageview.setImageResource(R.drawable.activity_day_graph);
    }
    
    /** Called when the user clicks the Activity Data Button */
-   public void respondToWeekButton () {
+   public void respondToWeekButton (View view) {
    	imageview.setImageResource(R.drawable.activity_week_graph);
    }
    
 	 /** Called when the user clicks the Activity Data Button */
-   public void respondToMonthButton () {
+   public void respondToMonthButton (View view) {
    	imageview.setImageResource(R.drawable.activity_month_graph);
    }
 

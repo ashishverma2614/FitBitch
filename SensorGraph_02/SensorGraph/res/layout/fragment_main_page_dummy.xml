@@ -64,14 +64,13 @@
     	android:layout_weight="0.7">
 
         <ImageButton
-    	    android:id="@+id/activityImageButton"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="fill_parent"
-    	    android:contentDescription="@string/click_me"
-    	    android:scaleType="centerCrop"
-    	    android:src="@drawable/activity_page_0" 
-    	    android:onClick="respondToActivityImageButton"
-    	    />
+            android:id="@+id/activityImageButton"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/click_me"
+            android:onClick="respondToActivityImageButton"
+            android:scaleType="centerCrop"
+            android:src="@drawable/activity_page_0" />
 
         <Button
             android:id="@+id/button1"
@@ -91,6 +90,15 @@
             android:layout_toLeftOf="@+id/button1"
             android:onClick="respondToOpenActivityDataButton"
             android:text="@string/activity_data_button" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:text="Recommended Steps per day: 2600" />
 
     </RelativeLayout>
 

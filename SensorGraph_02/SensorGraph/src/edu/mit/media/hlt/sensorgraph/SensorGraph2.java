@@ -158,10 +158,7 @@ public class SensorGraph2 extends Activity {
 								fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
 								dos = new DataOutputStream (fos);
 								dos.writeLong(currentDateTimeLong);
-								/*fos.write(a);
-								fos.write(b);
-								System.out.println("after a: " + a);
-								System.out.println("after b: " + b);*/
+	
 								dos.close();
 								fos.close();
 								

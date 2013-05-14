@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
 <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pager"
@@ -18,6 +21,11 @@
         android:background="#33b5e5"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:textColor="#fff" />
+        android:textColor="#fff" 
+        
+        />
+    
+	
+    
 
 </android.support.v4.view.ViewPager>
